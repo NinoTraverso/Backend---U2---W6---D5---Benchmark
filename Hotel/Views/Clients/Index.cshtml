@@ -1,0 +1,59 @@
+﻿@model List<Hotel.Models.Clients>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Clients</h2>
+
+<div class="d-flex justify-content-center w-100">
+    @Html.ActionLink("Add Client", "Create", "Clients", new { @class = "text-decoration-none text-success bg-success bg-opacity-50 p-2 mx-1 rounded border border-success" })
+    @Html.ActionLink("Add Booking", "Create", "Booking", new { @class = "text-decoration-none text-success bg-success bg-opacity-50 p-2 mx-1 rounded border border-success" })
+</div>
+
+<br />
+<br />
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>CF</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>City</th>
+            <th>County</th>
+            <th>Email</th>
+            <th>Telephone</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var client in Model)
+        {
+            <tr>
+                <td>@client.IdCF</td>
+                <td>@client.Name</td>
+                <td>@client.Surname</td>
+                <td>@client.City</td>
+                <td>@client.County</td>
+                <td>@client.Email</td>
+                <td>@client.Telephone</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Clients", new { IdCF = client.IdCF }, new { @class = "btn btn-primary" })
+                </td>
+
+                <!--https://stackoverflow.com/questions/72058192/asp-net-delete-row-from-database-using-a-cshtml-webpage-->
+                <td>
+                    @using (Html.BeginForm("Delete", "Clients", new { idCF = client.IdCF }, FormMethod.Post))
+                    {
+                        <button type="submit" data-bs-togle="modal" data-bs-target="#IdModal" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Delete User" idCF="@client.IdCF">Delete</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<br />
+<br />

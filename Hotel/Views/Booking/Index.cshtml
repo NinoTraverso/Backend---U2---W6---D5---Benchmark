@@ -1,0 +1,65 @@
+﻿@model List<Hotel.Models.Booking>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Bokings</h2>
+<div class="d-flex justify-content-center w-100">
+    @Html.ActionLink("Add Client", "Create", "Clients", new { @class = "text-decoration-none text-success bg-success bg-opacity-50 p-2 mx-1 rounded border border-success" })
+    @Html.ActionLink("Add Booking", "Create", "Booking", new { @class = "text-decoration-none text-success bg-success bg-opacity-50 p-2 mx-1 rounded border border-success" })
+</div>
+
+<br />
+<br />
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>CFID</th>
+            <th>idBooking</th>
+            <th>BookDate</th>
+            <th>CheckIn</th>
+            <th>CheckOut</th>
+            <th>Deposit</th>
+            <th>RoomID</th>
+            <th>FullPension</th>
+            <th>Extra</th>
+            <th>Total</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var booking in Model)
+        {
+            <tr>
+                <td>@booking.CFID</td>
+                <td>@booking.idBooking</td>
+                <td>@booking.BookDate</td>
+                <td>@booking.CheckIn</td>
+                <td>@booking.CheckOut</td>
+                <td>@booking.Deposit</td>
+                <td>@booking.RoomID</td>
+                <td>@booking.FullPension</td>
+                <td>@booking.Extra</td>
+                <td>@booking.Total</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Booking", new { CFID = booking.CFID }, new { @class = "btn btn-primary" })
+                </td>
+
+                <!--https://stackoverflow.com/questions/72058192/asp-net-delete-row-from-database-using-a-cshtml-webpage-->
+                <td>
+                    @using (Html.BeginForm("Delete", "Booking", new { CFID = booking.CFID }, FormMethod.Post))
+                    {
+                        <button type="submit" data-bs-togle="modal" data-bs-target="#IdModal" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Delete User" CFID="@booking.CFID">Delete</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<br />
+<br />
+
+
